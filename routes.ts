@@ -20,27 +20,35 @@ const schedulingController = new SchedulingController();
  *        - application/json
  *      parameters:
  *        - in: body
+ *          name: doctor
+ *          description: The doctor to create.
  *          schema:
  *            type: object
  *            properties:
- *              nome:
+ *              name:
  *                description: Nome do profissional.
  *                type: string
- *              sobrenome:
+ *                example: "Alex"
+ *              last_name:
  *                description: Sobrenome do profissional.
  *                type: string
- *              sexo:
+ *                example: "Alves"
+ *              gender:
  *                description: Gênero do profissional. Aceita somente 'M' ou 'F'.
+ *                enum: [M, F]
  *                type: string
- *              especialidade:
+ *              speciality:
  *                description: Especialidade do profissional.
  *                type: string
- *              clinica:
+ *                example: "Cardiologia"
+ *              clinic:
  *                description: Identificador da clínica que o profissional atende.
  *                type: string
- *              dataNascimento:
+ *                example: "myHealth"
+ *              birthday:
  *                description: Data de nascimento em formato ISO 8601 (YYYY-MM-DD).
  *                type: string
+ *                example: "1996-10-10"
  *      responses:
  *        201:
  *          description: Não possui retorno no body.
