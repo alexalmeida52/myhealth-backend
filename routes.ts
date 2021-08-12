@@ -79,9 +79,9 @@ routes.get('/doctors', doctorsController.index);
 /**
  *  @swagger
  *  
- *  /doctors/:id:
+ *  /doctors/{id}:
  *    get:
- *      summary: Retorna um médico.
+ *      summary: Return an object Doctor.
  *      tags:
  *      - Doctors
  *      consumes:
@@ -89,20 +89,22 @@ routes.get('/doctors', doctorsController.index);
  *      parameters:
  *        - in: path
  *          name: id
- *          description: Id do médico
+ *          schema:
  *          type: string
+ *          required: true
+ *          description: Doctor id
  *      responses:
  *        200:
- *          description: Retornar um médico
+ *          description: Object Doctor
 */
 routes.get('/doctors/:id', doctorsController.show);
 
 /**
  *  @swagger
  *  
- *  /doctors/:id:
+ *  /doctors/{id}:
  *    put:
- *      summary: Atualiza um médico.
+ *      summary: Update doctor.
  *      tags:
  *      - Doctors
  *      consumes:
@@ -110,33 +112,41 @@ routes.get('/doctors/:id', doctorsController.show);
  *      parameters:
  *        - in: path
  *          name: id
- *          description: Id do médico
+ *          description: Doctor id
  *          type: string
  *        - in: body
+ *          name: doctor
+ *          description: The doctor to create.
  *          schema:
  *            type: object
  *            properties:
- *              nome:
- *                description: Nome do profissional.
+ *              name:
+ *                description: First name.
  *                type: string
- *              sobrenome:
- *                description: Sobrenome do profissional.
+ *                example: "José Alex"
+ *              last_name:
+ *                description: Last name.
  *                type: string
- *              sexo:
- *                description: Gênero do profissional. Aceita somente 'M' ou 'F'.
+ *                example: "Pereira"
+ *              gender:
+ *                description: Professional gender. Accept only 'M' or 'F'.
  *                type: string
- *              especialidade:
- *                description: Especialidade do profissional.
+ *                example: "M"
+ *              speciality:
+ *                description: Professional speciality.
  *                type: string
- *              clinica:
- *                description: Identificador da clínica que o profissional atende.
+ *                example: "Fisioterapia"
+ *              clinic_id:
+ *                description: Professional's clinic id.
  *                type: string
- *              dataNascimento:
- *                description: Data de nascimento em formato ISO 8601 (YYYY-MM-DD).
+ *                example: "61152f6c23f3a50298ba69ef"
+ *              birthday:
+ *                description: Date of birth in ISO 8601 format (YYYY-MM-DD).
  *                type: string
+ *                example: "1992-10-22"
  *      responses:
  *        204:
- *          description: Não possui retorno no body.
+ *          description: No content.
 */
 routes.put('/doctors/:id', doctorsController.update);
 
@@ -146,7 +156,7 @@ routes.put('/doctors/:id', doctorsController.update);
  *  
  *  /doctors/:id:
  *    delete:
- *      summary: Remove um médico.
+ *      summary: Remove a doctor.
  *      tags:
  *      - Doctors
  *      consumes:
@@ -154,11 +164,11 @@ routes.put('/doctors/:id', doctorsController.update);
  *      parameters:
  *        - in: path
  *          name: id
- *          description: Id do médico no sistema da clínica
+ *          description: Doctor id
  *          type: integer
  *      responses:
  *        204:
- *          description: Não possui retorno no body.
+ *          description: No content.
 */
 routes.delete('/doctors/:id', doctorsController.remove);
 
@@ -168,7 +178,7 @@ routes.delete('/doctors/:id', doctorsController.remove);
  *  
  *  /schedulings:
  *    post:
- *      summary: Cria um novo agendamento.
+ *      summary: Create new scheduling.
  *      tags:
  *      - Scheduling
  *      consumes:
@@ -178,23 +188,19 @@ routes.delete('/doctors/:id', doctorsController.remove);
  *          schema:
  *            type: object
  *            properties:
- *              nome:
- *                description: Nome do profissional.
+ *              start_date:
+ *                description: Scheduling date in ISO 8601 format (YYYY-MM-DD HH:mm).
  *                type: string
- *              sobrenome:
- *                description: Sobrenome do profissional.
+ *                example: "2021-10-10 08:00"
+ *              patient_id:
+ *                description: Patient id.
  *                type: string
- *              sexo:
- *                description: Gênero do profissional. Aceita somente 'M' ou 'F'.
+ *                example: "123dfsdl"
+ *              doctor_id:
+ *                description: Doctor id.
  *                type: string
- *              especialidade:
- *                description: Especialidade do profissional.
- *                type: string
- *              clinica:
- *                description: Identificador da clínica que o profissional atende.
- *                type: string
- *              dataNascimento:
- *                description: Data de nascimento em formato ISO 8601 (YYYY-MM-DD).
+ *              timetable_id:
+ *                description: Timetable id.
  *                type: string
  *      responses:
  *        201:
