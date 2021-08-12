@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
-
+import Doctor from '../Models/DoctorSchema';
 class DoctorsController {
     async create(req: Request, res: Response) {
-
+        const doctor = new Doctor(req.body);
+        doctor.save();
         return res.status(204).send();
     }
 
