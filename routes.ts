@@ -46,12 +46,12 @@ const schedulingController = new SchedulingController();
  *                type: string
  *                example: "myHealth"
  *              birthday:
- *                description: Data de nascimento em formato ISO 8601 (YYYY-MM-DD).
+ *                description: Date of birth in ISO 8601 format (YYYY-MM-DD).
  *                type: string
  *                example: "1996-10-10"
  *      responses:
  *        201:
- *          description: Não possui retorno no body.
+ *          description: No content.
 */
 routes.post('/doctors', doctorsController.create);
 
@@ -60,7 +60,7 @@ routes.post('/doctors', doctorsController.create);
  *  
  *  /doctors:
  *    get:
- *      summary: Retorna todos os médicos
+ *      summary: Returns an array of doctor objects
  *      tags:
  *      - Doctors
  *      consumes:
