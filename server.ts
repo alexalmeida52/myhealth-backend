@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
+import mongoose from 'mongoose';
 
 // Biblioteca para lidar com requisições http
 const app = express();
@@ -15,6 +16,8 @@ app.use(express.json());
 app.use(cors());
 
 app.use(morgan('dev'));
+
+app.use(express.json());
 
 // Servindo rotas da api
 app.use(routes);
@@ -33,7 +36,8 @@ var swaggerDefinition = {
         version: '1.0.0',
         description: 'Todas as rotas para utilização do sistema.',
     },
-    host: 'myhealth-backend.herokuapp.com'
+    // host: 'myhealth-backend.herokuapp.com'
+    host: 'localhost:3333'
 };
 
 // options for the swagger docs
@@ -46,6 +50,11 @@ var options = {
 var swaggerSpec = swaggerJSDoc(options);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// Conectando ao mongodb localmente
+mongoose.connect('mongodb://localhost/myhealth')
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(() => console.log('Connection Failed with MongoDB'))
 
 // Servindo a aplicação na porta 3333
 app.listen(process.env.PORT || 3333, () => console.log(`Running server on port: ${process.env.PORT || 3333}`));
