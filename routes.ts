@@ -13,7 +13,7 @@ const schedulingController = new SchedulingController();
  *  
  *  /doctors:
  *    post:
- *      summary: Cria um novo médico.
+ *      summary: Create a new doctor.
  *      tags:
  *      - Doctors
  *      consumes:
@@ -26,23 +26,23 @@ const schedulingController = new SchedulingController();
  *            type: object
  *            properties:
  *              name:
- *                description: Nome do profissional.
+ *                description: Profissional name.
  *                type: string
  *                example: "Alex"
  *              last_name:
- *                description: Sobrenome do profissional.
+ *                description: Profissional last name.
  *                type: string
  *                example: "Alves"
  *              gender:
- *                description: Gênero do profissional. Aceita somente 'M' ou 'F'.
+ *                description: Professional gender. Accept only 'M' or 'F'.
  *                enum: [M, F]
  *                type: string
  *              speciality:
- *                description: Especialidade do profissional.
+ *                description: Professional speciality.
  *                type: string
  *                example: "Cardiologia"
  *              clinic:
- *                description: Identificador da clínica que o profissional atende.
+ *                description: Professional's clinic.
  *                type: string
  *                example: "myHealth"
  *              birthday:
@@ -93,6 +93,7 @@ routes.get('/doctors', doctorsController.index);
  *          type: string
  *          required: true
  *          description: Doctor id
+ *          example: "6114778fa75b6930362bd30a"
  *      responses:
  *        200:
  *          description: Object Doctor
@@ -114,6 +115,7 @@ routes.get('/doctors/:id', doctorsController.show);
  *          name: id
  *          description: Doctor id
  *          type: string
+ *          example: "6114778fa75b6930362bd30a"
  *        - in: body
  *          name: doctor
  *          description: The doctor to create.
@@ -136,10 +138,10 @@ routes.get('/doctors/:id', doctorsController.show);
  *                description: Professional speciality.
  *                type: string
  *                example: "Fisioterapia"
- *              clinic_id:
- *                description: Professional's clinic id.
+ *              clinic:
+ *                description: Professional's clinic.
  *                type: string
- *                example: "61152f6c23f3a50298ba69ef"
+ *                example: "myHealth"
  *              birthday:
  *                description: Date of birth in ISO 8601 format (YYYY-MM-DD).
  *                type: string
@@ -154,7 +156,7 @@ routes.put('/doctors/:id', doctorsController.update);
 /**
  *  @swagger
  *  
- *  /doctors/:id:
+ *  /doctors/{id}:
  *    delete:
  *      summary: Remove a doctor.
  *      tags:
@@ -165,7 +167,8 @@ routes.put('/doctors/:id', doctorsController.update);
  *        - in: path
  *          name: id
  *          description: Doctor id
- *          type: integer
+ *          type: string
+ *          example: "6114778fa75b6930362bd30a"
  *      responses:
  *        204:
  *          description: No content.
@@ -195,16 +198,17 @@ routes.delete('/doctors/:id', doctorsController.remove);
  *              patient_id:
  *                description: Patient id.
  *                type: string
- *                example: "123dfsdl"
+ *                example: "6114778fa75b6930362bd30a"
  *              doctor_id:
  *                description: Doctor id.
  *                type: string
+ *                example: "6114778fa75b6930362bd30a"
  *              timetable_id:
  *                description: Timetable id.
  *                type: string
  *      responses:
  *        201:
- *          description: Não possui retorno no body.
+ *          description: No content.
 */
 routes.post('/schedulings', schedulingController.create);
 
