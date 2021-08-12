@@ -6,6 +6,8 @@ const Doctor = mongoose.model('Doctors', {
   speciality: { type: String, required: true },
   gender: { type: String, required: true, enum: ['M', 'F'] },
   birthday: { type: Date, required: true },
+  clinic: { type: String, required: true },
+  created_at: { type: Date, default: Date.now }
 });
 
 export default Doctor;
