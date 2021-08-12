@@ -3,9 +3,11 @@ import express from 'express';
 const routes = express.Router();
 
 import DoctorsController from './controllers/DoctorsController';
+import PatientsController from './controllers/PatientsController';
 import SchedulingController from './controllers/SchedulingController';
 
 const doctorsController = new DoctorsController();
+const patientsController = new PatientsController();
 const schedulingController = new SchedulingController();
 
 /**
@@ -318,5 +320,176 @@ routes.put('/schedulings/:id', schedulingController.update);
  *          description: Não possui retorno no body.
 */
 routes.delete('/schedulings/:id', schedulingController.remove);
+
+
+/**
+ *  @swagger
+ *  
+ *  /patients:
+ *    post:
+ *      summary: Create a new patient.
+ *      tags:
+ *      - Patients
+ *      consumes:
+ *        - application/json
+ *      parameters:
+ *        - in: body
+ *          name: patient
+ *          description: The patient to create.
+ *          schema:
+ *            type: object
+ *            properties:
+ *              name:
+ *                description: Patient name.
+ *                type: string
+ *                example: "Fabricio"
+ *              last_name:
+ *                description: Patient last name.
+ *                type: string
+ *                example: "Cruz da Silva"
+ *              gender:
+ *                description: Patient gender. Accept only 'M' or 'F'.
+ *                enum: [M, F]
+ *                type: string
+ *              email:
+ *                description: Patient email.
+ *                type: string
+ *                example: "fabricio@myhealth.com.br"
+ *              password:
+ *                description: Patient password.
+ *                type: string
+ *                example: "12345"
+ *              phone:
+ *                description: Patient phone.
+ *                type: string
+ *                example: "84988649373"
+ *              birthday:
+ *                description: Date of birth in ISO 8601 format (YYYY-MM-DD).
+ *                type: string
+ *                example: "1996-12-23"
+ *      responses:
+ *        201:
+ *          description: No content.
+*/
+routes.post('/patients', patientsController.create);
+
+/**
+ *  @swagger
+ *  
+ *  /patients:
+ *    get:
+ *      summary: Return a list of patients
+ *      tags:
+ *      - Patients
+ *      consumes:
+ *        - application/json
+ *      responses:
+ *        200:
+ *          description: Returns an array of patient objects
+*/
+routes.get('/patients', patientsController.index);
+
+/**
+ *  @swagger
+ *  
+ *  /patients/{id}:
+ *    get:
+ *      summary: Return an object Patient.
+ *      tags:
+ *      - Patients
+ *      consumes:
+ *        - application/json
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          schema:
+ *          type: string
+ *          required: true
+ *          description: Patient id
+ *          example: "6114778fa75b6930362bd30a"
+ *      responses:
+ *        200:
+ *          description: Object Patient
+*/
+routes.get('/patients/:id', patientsController.show);
+
+/**
+ *  @swagger
+ *  
+ *  /patients/{id}:
+ *    put:
+ *      summary: Update doctor.
+ *      tags:
+ *      - Patients
+ *      consumes:
+ *        - application/json
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          description: Patient id
+ *          type: string
+ *          example: "6114778fa75b6930362bd30a"
+ *        - in: body
+ *          name: patient
+ *          description: The patient to create.
+ *          schema:
+ *            type: object
+ *            properties:
+ *              name:
+ *                description: First name.
+ *                type: string
+ *                example: "Bruno Wagner"
+ *              last_name:
+ *                description: Last name.
+ *                type: string
+ *                example: "Rodrigues"
+ *              gender:
+ *                description: Patient gender. Accept only 'M' or 'F'.
+ *                type: string
+ *                example: "M"
+ *              email:
+ *                description: Patient email.
+ *                type: string
+ *                example: "brunowagner@gmail.com"
+ *              password:
+ *                description: Patient password.
+ *                type: string
+ *                example: "myHealth"
+ *              phone:
+ *                description: Patient phone.
+ *                type: string
+ *                example: "84988321244"
+ *              birthday:
+ *                description: Date of birth in ISO 8601 format (YYYY-MM-DD).
+ *                type: string
+ *                example: "1992-10-22"
+ *      responses:
+ *        204:
+ *          description: No content.
+*/
+routes.put('/patients/:id', patientsController.update);
+
+
+/**
+ *  @swagger
+ *  
+ *  /patients/{id}:
+ *    delete:
+ *      summary: Remove a patient.
+ *      tags:
+ *      - Patients
+ *      consumes:
+ *        - application/json
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          description: Patient id
+ *          type: string
+ *          example: "6114778fa75b6930362bd30a"
+ *      responses:
+ *        204:
+ *          description: No content.
+*/
+routes.delete('/patients/:id', patientsController.remove);
 
 export default routes;
