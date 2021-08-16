@@ -5,10 +5,12 @@ const routes = express.Router();
 import DoctorsController from './controllers/DoctorsController';
 import PatientsController from './controllers/PatientsController';
 import SchedulingController from './controllers/SchedulingController';
+import TimetableController from './controllers/TimetableController';
 
 const doctorsController = new DoctorsController();
 const patientsController = new PatientsController();
 const schedulingController = new SchedulingController();
+const timetableController = new TimetableController();
 
 /**
  *  @swagger
@@ -491,5 +493,177 @@ routes.put('/patients/:id', patientsController.update);
  *          description: No content.
 */
 routes.delete('/patients/:id', patientsController.remove);
+
+
+/**
+ *  @swagger
+ *  
+ *  /timetable:
+ *    post:
+ *      summary: Create new timetable.
+ *      tags:
+ *      - Timetable
+ *      consumes:
+ *        - application/json
+ *      parameters:
+ *        - in: body
+ *          name: timetable
+ *          description: The timetable to create.
+ *          schema:
+ *            type: object
+ *            properties:
+ *              start_date:
+ *                description: Timetable start date in ISO 8601 format (YYYY-MM-DD HH:mm).
+ *                type: string
+ *                example: "2021-10-10 08:00"
+ *              end_date:
+ *                description: Timetable end date in ISO 8601 format (YYYY-MM-DD HH:mm).
+ *                type: string
+ *                example: "2021-12-10 08:00"
+ *              day_of_week: 
+ *                description: Day of week. For example, 0 (sunday), 1 (monday), 2 (Tuesday), ...
+ *                type: string
+ *                enum: ["0", "1", "2", "3", "4", "5", "6"]
+ *                example: "3"
+ *              duration:
+ *                description: Scheduling duration in minutes.
+ *                type: number
+ *                example: 30
+ *              limit: 
+ *                description: Schedulings limit of the timetable.
+ *                type: number
+ *                example: 10
+ *              doctor_id:
+ *                description: Doctor id.
+ *                type: string
+ *                example: "6114778fa75b6930362bd30a"
+ *              type:
+ *                description: 1 for scheduled time and 2 for order of arrival.
+ *                type: string
+ *                enum: ["1", "2"]
+ *      responses:
+ *        201:
+ *          description: Created.
+*/
+routes.post('/timetable', timetableController.create);
+
+/**
+ *  @swagger
+ *  
+ *  /timetable:
+ *    get:
+ *      summary: Return all timetable
+ *      tags:
+ *      - Timetable
+ *      consumes:
+ *        - application/json
+ *      responses:
+ *        200:
+ *          description: Array of timetable.
+*/
+routes.get('/timetable', timetableController.index);
+
+/**
+ *  @swagger
+ *  
+ *  /timetable/{id}:
+ *    get:
+ *      summary: Return an object Timetable.
+ *      tags:
+ *      - Timetable
+ *      consumes:
+ *        - application/json
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          schema:
+ *          type: string
+ *          required: true
+ *          description: Timetable id
+ *          example: "6114778fa75b6930362bd30a"
+ *      responses:
+ *        200:
+ *          description: Object Timetable
+*/
+routes.get('/timetable/:id', timetableController.show);
+
+/**
+ *  @swagger
+ *  
+ *  /timetable/{id}:
+ *    put:
+ *      summary: Update a timetable.
+ *      tags:
+ *      - Timetable
+ *      consumes:
+ *        - application/json
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          description: Timetable id
+ *          type: string
+ *          example: "6119bd1b8d5ba50692f751f2"
+ *        - in: body
+ *          name: timetable
+ *          description: The timetable to create.
+ *          schema:
+ *            type: object
+ *            properties:
+ *              start_date:
+ *                description: Timetable start date in ISO 8601 format (YYYY-MM-DD HH:mm).
+ *                type: string
+ *                example: "2021-10-10 08:00"
+ *              end_date:
+ *                description: Timetable end date in ISO 8601 format (YYYY-MM-DD HH:mm).
+ *                type: string
+ *                example: "2021-12-10 08:00"
+ *              day_of_week: 
+ *                description: Day of week. For example, 0 (sunday), 1 (monday), 2 (Tuesday), ...
+ *                type: string
+ *                enum: ["0", "1", "2", "3", "4", "5", "6"]
+ *                example: "3"
+ *              duration:
+ *                description: Scheduling duration in minutes.
+ *                type: number
+ *                example: 30
+ *              limit: 
+ *                description: Schedulings limit of the timetable.
+ *                type: number
+ *                example: 10
+ *              doctor_id:
+ *                description: Doctor id.
+ *                type: string
+ *                example: "6114778fa75b6930362bd30a"
+ *              type:
+ *                description: 1 for scheduled time and 2 for order of arrival.
+ *                type: string
+ *                enum: ["1", "2"]
+ *      responses:
+ *        204:
+ *          description: No content.
+*/
+routes.put('/timetable/:id', timetableController.update);
+
+
+/**
+ *  @swagger
+ *  
+ *  /timetable/{id}:
+ *    delete:
+ *      summary: Remove a timetable.
+ *      tags:
+ *      - Timetable
+ *      consumes:
+ *        - application/json
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          description: Timetable id.
+ *          type: string
+ *      responses:
+ *        204:
+ *          description: No content.
+*/
+routes.delete('/timetable/:id', timetableController.remove);
 
 export default routes;
