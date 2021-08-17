@@ -43,7 +43,7 @@ var swaggerDefinition = {
 // options for the swagger docs
 var options = {
     swaggerDefinition,
-    apis: ['./routes.ts'],
+    apis: ['./routes.ts', './docs/*/*.ts'],
 };
 
 // initialize swagger-jsdoc
