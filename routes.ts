@@ -522,34 +522,33 @@ routes.put('/timetable/:id', timetableController.update);
 */
 routes.delete('/timetable/:id', timetableController.remove);
 
-
 /**
  *  @swagger
  *  
  *  /schedulings:
  *    post:
- *      summary: Create new scheduling.
+ *      summary: Create a new scheduling.
  *      tags:
  *      - Scheduling
  *      consumes:
  *        - application/json
  *      parameters:
  *        - in: body
+ *          name: scheduling
+ *          description: The scheduling to create.
  *          schema:
  *            type: object
  *            properties:
  *              start_date:
- *                description: Scheduling date in ISO 8601 format (YYYY-MM-DD HH:mm).
+ *                description: Scheduling start date in ISO 8601 format (YYYY-MM-DD HH:mm).
  *                type: string
  *                example: "2021-10-10 08:00"
  *              patient_id:
  *                description: Patient id.
  *                type: string
- *                example: "6114778fa75b6930362bd30a"
  *              doctor_id:
  *                description: Doctor id.
  *                type: string
- *                example: "6114778fa75b6930362bd30a"
  *              timetable_id:
  *                description: Timetable id.
  *                type: string
@@ -559,33 +558,30 @@ routes.delete('/timetable/:id', timetableController.remove);
 */
 routes.post('/schedulings', schedulingController.create);
 
+
 /**
  *  @swagger
  *  
  *  /schedulings:
  *    get:
- *      summary: Retorna todos os agendamentos
+ *      summary: Return all schedulings
  *      tags:
  *      - Scheduling
  *      consumes:
  *        - application/json
- *      parameters:
- *        - in: query
- *          name: disponiveis
- *          description: Retornar apenas agendamentos disponíveis.
- *          type: string
  *      responses:
  *        200:
- *          description: Array com os agendamentos
+ *          description: Array of schedulings.
 */
 routes.get('/schedulings', schedulingController.index);
 
+
 /**
  *  @swagger
  *  
- *  /schedulings/:id:
+ *  /schedulings/{id}:
  *    get:
- *      summary: Retorna um agendamento.
+ *      summary: Return an object Scheduling.
  *      tags:
  *      - Scheduling
  *      consumes:
@@ -593,20 +589,24 @@ routes.get('/schedulings', schedulingController.index);
  *      parameters:
  *        - in: path
  *          name: id
- *          description: Id do agendamento
+ *          schema:
  *          type: string
+ *          required: true
+ *          description: Scheduling id
+ *          example: "6114778fa75b6930362bd30a"
  *      responses:
  *        200:
- *          description: Retornar um agendamento
+ *          description: Object Scheduling
 */
 routes.get('/schedulings/:id', schedulingController.show);
 
+
 /**
  *  @swagger
  *  
- *  /schedulings/:id:
+ *  /schedulings/{id}:
  *    put:
- *      summary: Atualiza um agendamento.
+ *      summary: Update scheduling.
  *      tags:
  *      - Scheduling
  *      consumes:
@@ -614,43 +614,39 @@ routes.get('/schedulings/:id', schedulingController.show);
  *      parameters:
  *        - in: path
  *          name: id
- *          description: Id do agendamento
+ *          description: Scheduling id
  *          type: string
  *        - in: body
+ *          name: scheduling
+ *          description: The scheduling to create.
  *          schema:
  *            type: object
  *            properties:
- *              nome:
- *                description: Nome do profissional.
+ *              start_date:
+ *                description: Scheduling start date in ISO 8601 format (YYYY-MM-DD HH:mm).
  *                type: string
- *              sobrenome:
- *                description: Sobrenome do profissional.
+ *                example: "2021-10-10 08:00"
+ *              patient_id:
+ *                description: Patient id.
  *                type: string
- *              sexo:
- *                description: Gênero do profissional. Aceita somente 'M' ou 'F'.
+ *              doctor_id:
+ *                description: Doctor id.
  *                type: string
- *              especialidade:
- *                description: Especialidade do profissional.
- *                type: string
- *              clinica:
- *                description: Identificador da clínica que o profissional atende.
- *                type: string
- *              dataNascimento:
- *                description: Data de nascimento em formato ISO 8601 (YYYY-MM-DD).
+ *              timetable_id:
+ *                description: Timetable id.
  *                type: string
  *      responses:
  *        204:
- *          description: Não possui retorno no body.
+ *          description: No content.
 */
 routes.put('/schedulings/:id', schedulingController.update);
-
 
 /**
  *  @swagger
  *  
- *  /schedulings/:id:
+ *  /schedulings/{id}:
  *    delete:
- *      summary: Remove um agendamento.
+ *      summary: Remove a scheduling.
  *      tags:
  *      - Scheduling
  *      consumes:
@@ -658,11 +654,11 @@ routes.put('/schedulings/:id', schedulingController.update);
  *      parameters:
  *        - in: path
  *          name: id
- *          description: Id do agendamento no sistema da clínica
- *          type: integer
+ *          description: Scheduling id.
+ *          type: string
  *      responses:
  *        204:
- *          description: Não possui retorno no body.
+ *          description: No content.
 */
 routes.delete('/schedulings/:id', schedulingController.remove);
 
