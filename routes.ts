@@ -6,11 +6,13 @@ import DoctorsController from './controllers/DoctorsController';
 import PatientsController from './controllers/PatientsController';
 import SchedulingController from './controllers/SchedulingController';
 import TimetableController from './controllers/TimetableController';
+import DoctorAvailabilityController from './controllers/DoctorAvailabilityController';
 
 const doctorsController = new DoctorsController();
 const patientsController = new PatientsController();
 const schedulingController = new SchedulingController();
 const timetableController = new TimetableController();
+const doctorAvailabilityController = new DoctorAvailabilityController();
 
 /**
  * PATIENTS ENTPOINTS
@@ -47,5 +49,7 @@ routes.get('/schedulings', schedulingController.index);
 routes.get('/schedulings/:id', schedulingController.show);
 routes.put('/schedulings/:id', schedulingController.update);
 routes.delete('/schedulings/:id', schedulingController.remove);
+
+routes.get('/doctor-availability/:id', doctorAvailabilityController.index);
 
 export default routes;
