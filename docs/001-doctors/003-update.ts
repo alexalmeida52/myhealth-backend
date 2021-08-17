@@ -28,6 +28,10 @@
  *                description: Last name.
  *                type: string
  *                example: "Pereira"
+ *              avatar:
+ *                description: Avatar url.
+ *                type: string
+ *                example: "https://upload.wikimedia.org/wikipedia/commons/e/ed/Elon_Musk_Royal_Society.jpg"
  *              gender:
  *                description: Professional gender. Accept only 'M' or 'F'.
  *                type: string
@@ -44,6 +48,10 @@
  *                description: Date of birth in ISO 8601 format (YYYY-MM-DD).
  *                type: string
  *                example: "1992-10-22"
+ *              price:
+ *                description: Scheduling price.
+ *                type: string
+ *                example: 244.90
  *      responses:
  *        204:
  *          description: No content.
