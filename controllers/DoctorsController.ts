@@ -16,7 +16,7 @@ class DoctorsController {
         let name = String(req.query.name);
         try {
             let data = [];
-            if(name) {
+            if(name && name != 'undefined') {
                 let nameRegex = new RegExp(name, 'gi');              
                 data = await Doctor.find({ '$or': [{ name: nameRegex}, { last_name: nameRegex}]});
             } else {
