@@ -13,8 +13,15 @@ class DoctorsController {
     }
 
     async index(req: Request, res: Response) {
+        let name = String(req.query.name);
         try {
-            let data = await Doctor.find({});
+            let data = [];
+            if(name) {
+                let nameRegex = new RegExp(name, 'gi');              
+                data = await Doctor.find({ '$or': [{ name: nameRegex}, { last_name: nameRegex}]});
+            } else {
+                data = await Doctor.find({});
+            }
             return res.json(data);
         } catch (error) {
             return res.status(400).send('Failed to find');   
