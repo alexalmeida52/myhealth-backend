@@ -52,7 +52,8 @@ var swaggerSpec = swaggerJSDoc(options);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Conectando ao mongodb localmente
-mongoose.connect('mongodb://localhost/myhealth')
+// mongoose.connect('mongodb://localhost/myhealth')
+mongoose.connect('mongodb://teste:12345@cluster0-shard-00-00.1kjrl.mongodb.net:27017,cluster0-shard-00-01.1kjrl.mongodb.net:27017,cluster0-shard-00-02.1kjrl.mongodb.net:27017/myhealth?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority')
     .then(() => console.log('Connected to MongoDB'))
     .catch(() => console.log('Connection Failed with MongoDB'))
 
