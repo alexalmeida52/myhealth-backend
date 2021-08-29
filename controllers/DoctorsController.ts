@@ -15,28 +15,31 @@ class DoctorsController {
     async index(req: Request, res: Response) {
         let name = String(req.query.name);
         let stars = Number(req.query.stars);
+        let maxPrice = Number(req.query.maxPrice);
         let specialities = req.query.speciality ? String(req.query.speciality).split(',') : [];
         
         try {
             let data = [];
+            let query = {};
+
             if(name && name != 'undefined') {
                 let nameRegex = new RegExp(name, 'gi');              
-                let query = { '$or': [{ name: nameRegex}, { last_name: nameRegex}]};
-                if(stars)
-                    query['stars'] = stars;
-                if(specialities.length)
-                    query['speciality'] = { '$in': specialities }
-                
-                data = await Doctor.find(query);
-            } else {
-                let query = {};
-                if(stars)
-                    query['stars'] = stars;
-                if(specialities.length)
-                    query['speciality'] = { '$in': specialities };
+                query['$or'] = [{ name: nameRegex}, { last_name: nameRegex}];
+            } 
 
-                data = await Doctor.find(query);
-            }
+            if(stars)
+                query['stars'] = stars;
+            
+                if(specialities.length)
+                query['speciality'] = { '$in': specialities }
+            
+            if(maxPrice)
+                query['price'] = { '$lte': maxPrice };
+            
+            console.log(query);
+
+            data = await Doctor.find(query);
+            
             return res.json(data);
         } catch (error) {
             return res.status(400).send('Failed to find');   
