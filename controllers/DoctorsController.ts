@@ -15,6 +15,8 @@ class DoctorsController {
     async index(req: Request, res: Response) {
         let name = String(req.query.name);
         let stars = Number(req.query.stars);
+        let specialities = req.query.speciality ? String(req.query.speciality).split(',') : [];
+        
         try {
             let data = [];
             if(name && name != 'undefined') {
@@ -22,11 +24,17 @@ class DoctorsController {
                 let query = { '$or': [{ name: nameRegex}, { last_name: nameRegex}]};
                 if(stars)
                     query['stars'] = stars;
+                if(specialities.length)
+                    query['speciality'] = { '$in': specialities }
+                
                 data = await Doctor.find(query);
             } else {
                 let query = {};
                 if(stars)
                     query['stars'] = stars;
+                if(specialities.length)
+                    query['speciality'] = { '$in': specialities };
+
                 data = await Doctor.find(query);
             }
             return res.json(data);
