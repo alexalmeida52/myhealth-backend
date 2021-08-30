@@ -15,7 +15,7 @@ class SchedulingController {
 
     async index(req: Request, res: Response) {
         try {
-            let data = await Scheduling.find({});
+            let data = await Scheduling.find({}).populate('doctor_id');
             return res.json(data);
         } catch (error) {
             return res.status(400).send('Failed to find');   
