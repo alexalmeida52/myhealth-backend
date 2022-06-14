@@ -36,8 +36,8 @@ var swaggerDefinition = {
         version: '1.0.0',
         description: 'Todas as rotas para utilização do sistema.',
     },
-    // host: 'myhealth-backend.herokuapp.com'
-    host: 'localhost:3333'
+    host: 'myhealth-backend.herokuapp.com'
+    // host: 'localhost:3333'
 };
 
 // options for the swagger docs
