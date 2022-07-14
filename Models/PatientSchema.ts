@@ -9,6 +9,9 @@ const Patient = mongoose.model('Patients', {
   phone: { type: String, required: true },
   birthday: { type: Date, required: true },
   avatarUrl: { type: String },
+  lat: { type: String, required: true },
+  long: { type: String, required: true },
+  address: { type: String, required: true },
   created_at: { type: Date, default: Date.now }
 });
 
