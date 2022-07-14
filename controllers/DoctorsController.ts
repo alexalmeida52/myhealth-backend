@@ -6,7 +6,7 @@ class DoctorsController {
 
         try {
             await doctor.save();    
-            return res.status(204).send();
+            return res.status(200).json({ _id: doctor._id });
         } catch (error) {
             return res.status(400).send('Failed to save');
         }
@@ -36,7 +36,6 @@ class DoctorsController {
             if(maxPrice)
                 query['price'] = { '$lte': maxPrice };
             
-            console.log(query);
 
             data = await Doctor.find(query);
             

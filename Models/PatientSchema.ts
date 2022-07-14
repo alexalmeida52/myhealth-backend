@@ -8,6 +8,7 @@ const Patient = mongoose.model('Patients', {
   password: { type: String, required: true },
   phone: { type: String, required: true },
   birthday: { type: Date, required: true },
+  avatarUrl: { type: String },
   created_at: { type: Date, default: Date.now }
 });
 
